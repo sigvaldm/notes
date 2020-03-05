@@ -7,7 +7,7 @@
 \usepackage[english]{babel}
 \usepackage{xcolor}
 \usepackage{subcaption}
-\usepackage{cleveref}
+\usepackage[capitalise]{cleveref}
 \usepackage{fancyvrb}
 \VerbatimFootnotes
 
@@ -190,17 +190,33 @@ Although vector formats can be scaled without loss of quality, it is still desir
 When using raster formats, it is in addition necessary to have a sufficiently good resolution.
 
 \subsubsection{Resolution}
-Whereas a resolution of 100 PPI (pixels per inch) looks good on a computer screen, it is necessary with 300 PPI on printed paper.
-On the other hand, you may want to avoid much better resolution than 300 PPI to avoid excessive file sizes.
+The resolution of your monitor can be measured in \emph{pixels per inch} (PPI). If, for instance, you have a 14 inch laptop monitor with $1920\times1080$ pixels\footnote{The number of pixels per dimension is also usually referred to as resolution, but that is actually a misnomer, since it does not say anything about how dense the pixels are.}, there will be
+\begin{align}
+    \sqrt{1920^2+1080^2}=2202.9
+\end{align}
+pixel lengths along the diagonal, and hence your monitor has a resolution of
+\begin{align}
+    2202.9 / 14 = 157
+\end{align}
+pixels per inch. Larger screens often have the same number of pixels, and thus a lower resolution. If you display a $300\times300$ pixel image on full scale on this monitor, the image would be $300/157=1.91$ in each side, or 4.85 cm, using the conversion 
+\begin{align}
+    1\,\text{in} = 2.54\,\text{cm}.
+\end{align}
+
+The resolution on print works similarly, except that it is usually referred to as \emph{dots per inch} (DPI), and that it must be specified in the image file (or file to be printed). For an image to appear of good quality on print, a resolution of 300 DPI is advisable. With this resolution, the $300\times300$ pixel image would be only one inch, or 2.54 cm each side. Higher resolution leads to larger files, whereas lower resolution may result in a seemingly good quality on screen, but not necessarily when printed. With this knowledge, a single column figure of 77 mm width would require a width of $300\cdot7.7/2.54=909$ pixels to look good on print. Fortunately, it is usually possible to specify size and resolution separately in graphics editors, such that you would only have to specify 77 mm, whatever height you find suitable and 300 DPI. Text is inserted with whichever font and text size previously determined.
 
 \subsection{Step 3: Inserting the Figure}
-Finally comes the point of inserting the figure into your \LaTeX{} document, which is done in the simplest way possible:
+Finally comes the point of inserting the figure into your \LaTeX{} document.
+If everything went according to the plan, it should be enough to write
 
 \begin{verbatim}
 \includegraphics{file.png}
 \end{verbatim}
-(given that the file is named \verb|file.png|). Note that we do not use any options for scaling the figure, like \verb|[width=0.7\columnwidth]| or \verb|[scale=0.23]|. The default is already a scaling factor of one, and the figure should already have the right size.
-\\
+(given that the file is named \verb|file.png|). Note that we do not use any options for scaling the figure, like \verb|[scale=0.23]| or \verb|[width=0.7\columnwidth]|. The default is already a scaling factor of one, which means that the figure would appear on print with 300 DPI and a width of 77 mm for the example used throughout. If, for some reason, you were not able to set the DPI correctly, the figure will out-of-scale. As a last resort you can then specify the size manually, e.g.,
+\begin{verbatim}
+\includegraphics[width=77mm]{file.png}
+\end{verbatim}
+and if the image has the correct number of pixels, it will still be 300 DPI when it is actually printed.
 
 \subsection{InkScape}
 \subsection{Gimp}
